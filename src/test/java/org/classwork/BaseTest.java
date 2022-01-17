@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import java.sql.Driver;
+import java.time.Duration;
+
 
 public class BaseTest {
     WebDriver driver;
@@ -14,6 +17,7 @@ public class BaseTest {
     public void driverInt(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
     }
 
     @AfterClass

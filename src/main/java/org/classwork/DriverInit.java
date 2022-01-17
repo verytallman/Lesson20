@@ -3,6 +3,8 @@ package org.classwork;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+
 public class DriverInit {
     private static WebDriver webDriver;
 
@@ -28,6 +30,7 @@ public class DriverInit {
                 webDriver = WebDriverManager.firefoxdriver().create();
                 break;
         }
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
     }
 
     public enum Browser{
