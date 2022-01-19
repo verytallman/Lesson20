@@ -1,26 +1,29 @@
 package org.classwork;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-public class WaitersSeleniumSuite extends BaseTest {
+public class WaitersSeleniumSuite extends BaseTestClassWork {
     @Test
     public void threadSleep(){
-        driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation");
-        driver.findElement(By.xpath("//input[@id='email_create']")).sendKeys("somemail@gmail.com");
-        driver.findElement(By.xpath("//button[@id='SubmitCreate']")).click();
-        driver.findElement(By.xpath("//button[@id='submitAccount']")).isDisplayed();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://www.gurock.com/testrail/tour/modern-test-management");
 
-        wait
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='SubmitCreate']")));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        wait
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='SubmitCreate']")));
 
+        try {
+            HttpURLConnection c = (HttpURLConnection) new URL("https://www.gurock.com/testrail/tour/modern-test-management")
+                            .openConnection();
 
+            System.out.println(c.getResponseCode());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
