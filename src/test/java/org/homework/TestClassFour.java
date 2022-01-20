@@ -12,26 +12,24 @@ import java.net.URL;
 
 public class TestClassFour extends BaseTestHomeWork {
     @Test
-    public void threadSleep(){
-        webDriver.get("https://www.gurock.com/");
-        WebElement featuresButton = webHelpers.findElement(webDriver, By.xpath("//li/a[contains(text(),'Features')]"));
-        webHelpers.scrollToElement(webDriver, featuresButton);
-        featuresButton.click();
-        String featuresLink = webDriver.getCurrentUrl();
-
-
+    public void responseCodeCheck(){
         try {
+            webDriver.get("https://www.gurock.com/");
+            WebElement featuresButton = webHelpers.findElement(webDriver, By.xpath("//li/a[contains(text(),'Features')]"));
+            webHelpers.scrollToElement(webDriver, featuresButton);
+            featuresButton.click();
+            String featuresLink = webDriver.getCurrentUrl();
             HttpURLConnection c = (HttpURLConnection) new URL(featuresLink).openConnection();
+            c.setRequestMethod("HEAD");
             System.out.println(c.getResponseCode());
+
             if (c.getResponseCode() == 403){
-                System.out.println("The response code from website is "+c.getResponseCode()+" everything looks good.");
-            } else if (c.getResponseCode() == 301)
-                System.out.println("The response code from website is "+c.getResponseCode()+", please help!");
+                System.out.println("Forbidden "+c.getResponseCode()+" \"Запрещено\". " +
+                        "У клиента нет прав доступа к содержимому, поэтому сервер отказывается дать надлежащий ответ. ");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
