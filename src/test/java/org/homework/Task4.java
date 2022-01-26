@@ -14,10 +14,8 @@ public class Task4 extends BaseTestHomeWork {
 
     @Test
     public void responseCodeCheck() {
-
         try {
-//            webDriver.get("https://www.ideracorp.com/legal/Gurock");
-            webDriver.get("https://www.google.com");
+            webDriver.get("https://www.ideracorp.com/legal/Gurock");
             String featuresLink = webDriver.getCurrentUrl();
             HttpURLConnection c = (HttpURLConnection) new URL(featuresLink).openConnection();
             c.setRequestMethod("GET");
