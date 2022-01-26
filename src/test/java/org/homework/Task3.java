@@ -12,46 +12,30 @@ public class Task3 extends BaseTestHomeWork {
 
     @Test
     public void switchTabCheck() {
-
-            webDriver.get("https://www.gurock.com");
-            String mainTab = webDriver.getWindowHandle();
-            System.out.println(webDriver.getCurrentUrl());
-            WebElement legalLink = webHelpers.findElement(webDriver, By.xpath("//a[contains(text(),'Legal')]"));
-            webHelpers.scrollToElement(webDriver, legalLink);
-            legalLink.click();
-
-            for (String tab:webDriver.getWindowHandles()) {
+        webDriver.get("https://www.gurock.com");
+        webDriver.manage().window().maximize();
+        String mainTab = webDriver.getWindowHandle();
+        WebElement legalLink = webHelpers.findElement(webDriver, By.xpath("//a[contains(text(),'Legal')]"));
+        WebElement subscribeButton = webDriver.findElement(By.xpath("//div[@class='col-6 col-sm-6 col-md-4 col-lg-3 gk-footer-menu-item-first']/a[@role='button']"));
+        webHelpers.scrollToElement(webDriver, legalLink);
+        legalLink.click();
+        for (String tab:webDriver.getWindowHandles()) {
                 webDriver.switchTo().window(tab);
             }
-
-            String legalLinkSite = "https://www.ideracorp.com/legal/Gurock";
-
-            Assert.assertEquals(webDriver.getCurrentUrl(), legalLinkSite);
-            WebElement policiesAndProceduresTab = webDriver.findElement(By.xpath("//a[@id='ui-id-3']"));
-            policiesAndProceduresTab.click();
-
-            WebElement exportCompliencePolicy = webDriver.findElement(By.xpath("//a[contains(text(),'Export Compliance Policy')]"));
-
-            WebElement dataStoragePolicy = webDriver.findElement(By.xpath("//a[contains(text(),'Data Storage Policy')]"));
-
-            Assert.assertEquals(webDriver.findElement(By.xpath("//a[contains(text(),'Export Compliance Policy')]")).isDisplayed(),
+        String legalLinkSite = "https://www.ideracorp.com/legal/Gurock";
+        Assert.assertEquals(webDriver.getCurrentUrl(), legalLinkSite);
+        WebElement policiesAndProceduresTab = webDriver.findElement(By.xpath("//a[@id='ui-id-3']"));
+        policiesAndProceduresTab.click();
+        WebElement exportCompliencePolicy = webDriver.findElement(By.xpath("//a[contains(text(),'Export Compliance Policy')]"));
+        WebElement dataStoragePolicy = webDriver.findElement(By.xpath("//a[contains(text(),'Data Storage Policy')]"));
+        Assert.assertEquals(webDriver.findElement(By.xpath("//a[contains(text(),'Export Compliance Policy')]")).isDisplayed(),
                     exportCompliencePolicy.isDisplayed());
-            Assert.assertEquals(webDriver.findElement(By.xpath("//a[contains(text(),'Data Storage Policy')]")).isDisplayed(),
+        Assert.assertEquals(webDriver.findElement(By.xpath("//a[contains(text(),'Data Storage Policy')]")).isDisplayed(),
                     dataStoragePolicy.isDisplayed());
-
-                webDriver.switchTo().window(mainTab);
-                 System.out.println(webDriver.getCurrentUrl());
-
-//            webDriver.navigate().to(webDriver.getCurrentUrl());
-
-//            WebElement subscribeButton = webDriver.findElement(By.xpath("//div[@class='col-6 col-sm-6 col-md-4 col-lg-3 gk-footer-menu-item-first']/a"));
-
-//            webHelpers.scrollToElement(webDriver, subscribeButton);
-
-            webHelpers.waitForElementToBeClickable(webDriver,By.xpath("//div[@class='col-6 col-sm-6 col-md-4 col-lg-3 gk-footer-menu-item-first']/a")).click();
-//            subscribeButton.click();
-
-            String desiredURl = "https://www.gurock.com/testrail/newsletter/";
-            Assert.assertEquals(webDriver.getCurrentUrl(), desiredURl);
+        webDriver.switchTo().window(mainTab);
+        webHelpers.scrollToElement(webDriver, subscribeButton);
+        subscribeButton.click();
+        String desiredURl = "https://www.gurock.com/testrail/newsletter/";
+        Assert.assertEquals(webDriver.getCurrentUrl(), desiredURl);
     }
 }
